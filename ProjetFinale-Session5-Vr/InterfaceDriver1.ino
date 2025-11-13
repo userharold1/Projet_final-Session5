@@ -5,7 +5,10 @@
 #include "piloteMoteur2.h"
 
 //Definitions privees
-//pas de definitions privees
+#define MOTEUR1 1
+#define MOTEUR2 2
+#define MOTEUR3 3
+#define MOTEUR4 4
 
 //Declarations de fonctions privees:
 //pas de fonctions privees
@@ -21,7 +24,7 @@
 
 //Definitions de fonctions publiques:
 
-void moteur_EN_driver1(unsigned char moteur, unsigned char niveau) 
+void InterfaceDriver1_EN(unsigned char moteur, unsigned char niveau) 
 {
     switch(moteur) 
     {
@@ -31,10 +34,13 @@ void moteur_EN_driver1(unsigned char moteur, unsigned char niveau)
         case MOTEUR2: 
         piloteMoteur2_EN_metA(niveau); 
         break;
+
+        default: 
+        break;
     }
 }
 
-void moteur_IN1_driver1(unsigned char moteur, unsigned char niveau) 
+void InterfaceDriver1_IN1(unsigned char moteur, unsigned char niveau) 
 { 
     switch(moteur)
      {
@@ -44,10 +50,13 @@ void moteur_IN1_driver1(unsigned char moteur, unsigned char niveau)
         case MOTEUR2: 
         piloteMoteur2_IN1_metA(niveau); 
         break;
+
+        default: 
+        break;
     }
 }
 
-void moteur_IN2_driver1(unsigned char moteur, unsigned char niveau) 
+void InterfaceDriver1_IN2(unsigned char moteur, unsigned char niveau) 
 { 
     switch(moteur) 
     {
@@ -57,10 +66,13 @@ void moteur_IN2_driver1(unsigned char moteur, unsigned char niveau)
         case MOTEUR2: 
         piloteMoteur2_IN2_metA(niveau); 
         break;
+
+        default: 
+        break;
     }
 }
 
-void Moteur_Driver1_Initialise(void)
+void InterfaceDriver1_Initialise(void)
 {
   piloteMoteur1_EN_metA(LOW);
   piloteMoteur1_IN1_metA(LOW);

@@ -10,6 +10,8 @@
 #include "piloteMoteur2.h"
 #include "piloteMoteur3.h"
 #include "piloteMoteur4.h"
+#include "InterfaceDriver1"
+#include "InterfaceDriver2"
 
 #include "piloteAnalogue1.h"
 #include "piloteI2C1.h"
@@ -39,6 +41,8 @@ void main_initialise(void)
   piloteMoteur2_initialise();
   piloteMoteur3_initialise();
   piloteMoteur4_initialise();
+  InterfaceDriver1_Initialise();
+  InterfaceDriver2_Initialise();
 
   piloteAnalogue1_initialise();
   piloteI2C1_initialise();
