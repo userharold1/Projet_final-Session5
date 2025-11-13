@@ -36,6 +36,12 @@
 #define piloteMoteur4_IN2_BROCHE 4
 #define piloteMoteur4_ETAT_INITIAL_A_ZERO
 
+// Moteur 
+#define MOTEUR1 1
+#define MOTEUR2 2
+#define MOTEUR3 3
+#define MOTEUR4 4
+
 #define PILOTEANALOGUE1_BROCHE A4
 #define INTERFACEENTREE1_VALEUR_LUE_SI_ACTIVE  1   
 #define INTERFACEENTREE1_VALEUR_LUE_SI_INACTIVE 0
