@@ -10,16 +10,20 @@
 #include "piloteMoteur2.h"
 #include "piloteMoteur3.h"
 #include "piloteMoteur4.h"
-#include "InterfaceDriver1"
-#include "InterfaceDriver2"
+#include "InterfaceDriver1.h"
+#include "InterfaceDriver2.h"
 
 #include "piloteAnalogue1.h"
 #include "piloteI2C1.h"
 #include "serviceTaskServer.h"
 #include "serviceBaseDeTemps.h"
+
 #include "interfaceEntree1.h"
+#include "InterfaceDetecteurDeLigne.h"
 #include "processusTacheLenteDansLoop.h"
 #include "processusDemonstration.h"
+#include "ProcessusSuiveurDeLigne.h"
+#include "ProcessusConduite.h"
 
 //Definitions privees
 //pas de definitions privees
@@ -35,6 +39,9 @@ void loop(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
+  serviceTaskServer_initialise();
+  serviceBaseDeTemps_initialise();
+
   piloteEntree1_initialise();
 
   piloteMoteur1_initialise();
@@ -43,15 +50,15 @@ void main_initialise(void)
   piloteMoteur4_initialise();
   InterfaceDriver1_Initialise();
   InterfaceDriver2_Initialise();
-
+  processusRoues_initialise();
   piloteAnalogue1_initialise();
   piloteI2C1_initialise();
-  serviceTaskServer_initialise();
-  serviceBaseDeTemps_initialise();
+  
   interfaceEntree1_initialise();
   processusDemonstration_initialise();
   processusTacheLenteDansLoop_initialise();
   processusTacheLenteDansLoop_initialise();
+  processusSuiveurDeLigne_initialise();
 }
 
 void setup(void) 

@@ -23,6 +23,7 @@
 void piloteMoteur3_EN_metA(unsigned char Niveau);
 void piloteMoteur3_IN1_metA(unsigned char Niveau);
 void piloteMoteur3_IN2_metA(unsigned char Niveau);
+void piloteMoteur3_PWM_metA(unsigned char PWM);
 void piloteMoteur3_initialise(void);
 
 //Variables publiques:

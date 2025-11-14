@@ -5,7 +5,7 @@
 //DESCRIPTION: Programme qui gÃ¨re des fonctionnalitÃ©s de base Ã  l'aide d'une base de temps
 
 //HISTORIQUE:
-// 2021-10-31, Yves Roy: crÃ©ation
+// 2021-10-31, Harold Kouadio: crÃ©ation
 
 //inclusions globales
 
@@ -16,24 +16,24 @@
 #define PILOTEENTREE1_BROCHE 21
 
 
-#define piloteMoteur1_EN_BROCHE 13
-#define piloteMoteur1_IN1_BROCHE 12
-#define piloteMoteur1_IN2_BROCHE 27
+#define piloteMoteur1_EN_BROCHE 14
+#define piloteMoteur1_IN1_BROCHE 15
+#define piloteMoteur1_IN2_BROCHE 32
 #define piloteMoteur1_ETAT_INITIAL_A_ZERO
 
-#define piloteMoteur2_EN_BROCHE 33
-#define piloteMoteur2_IN1_BROCHE 15
-#define piloteMoteur2_IN2_BROCHE 32
+#define piloteMoteur2_EN_BROCHE 12
+#define piloteMoteur2_IN1_BROCHE 27
+#define piloteMoteur2_IN2_BROCHE 33
 #define piloteMoteur2_ETAT_INITIAL_A_ZERO
 
-#define piloteMoteur3_EN_BROCHE 14
-#define piloteMoteur3_IN1_BROCHE 34
-#define piloteMoteur3_IN2_BROCHE 39
+#define piloteMoteur3_EN_BROCHE 17
+#define piloteMoteur3_IN1_BROCHE 19
+#define piloteMoteur3_IN2_BROCHE 16
 #define piloteMoteur3_ETAT_INITIAL_A_ZERO
 
-#define piloteMoteur4_EN_BROCHE 39
-#define piloteMoteur4_IN1_BROCHE 36
-#define piloteMoteur4_IN2_BROCHE 4
+#define piloteMoteur4_EN_BROCHE 4
+#define piloteMoteur4_IN1_BROCHE 5
+#define piloteMoteur4_IN2_BROCHE 18
 #define piloteMoteur4_ETAT_INITIAL_A_ZERO
 
 // Moteur 
@@ -52,12 +52,13 @@
 #define SERVICETASKSERVER_PERIODE_EN_US (4000L)
 #define SERVICEBASEDETEMPS_FREQUENCE_EN_HZ ((1000000L)/SERVICETASKSERVER_PERIODE_EN_US)
 
-#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES 2
+#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES 5
 #define INTERFACEENTREE1_PHASE 0
 #define PROCESSUSDEMONSTRATION_PHASE 1
 
 #define PROCESSUSWIFITRANSMISION_PHASE 2
 #define PROCESSUSWIFIRECEPTION_PHASE 3
+#define PROCESSUSCONDUITEPHASE 4
 
 #define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP 1
 #define PROCESSUSTACHELENTEDANSLOOP_PHASE 0

@@ -3,6 +3,7 @@
 #include "main.h"
 #include "piloteMoteur1.h"
 #include "piloteMoteur2.h"
+#include "InterfaceDriver1.h"
 
 //Definitions privees
 #define MOTEUR1 1
@@ -24,7 +25,7 @@
 
 //Definitions de fonctions publiques:
 
-void InterfaceDriver1_EN(unsigned char moteur, unsigned char niveau) 
+/*void InterfaceDriver1_EN(unsigned char moteur, unsigned char niveau) 
 {
     switch(moteur) 
     {
@@ -38,7 +39,7 @@ void InterfaceDriver1_EN(unsigned char moteur, unsigned char niveau)
         default: 
         break;
     }
-}
+}*/
 
 void InterfaceDriver1_IN1(unsigned char moteur, unsigned char niveau) 
 { 
@@ -72,13 +73,28 @@ void InterfaceDriver1_IN2(unsigned char moteur, unsigned char niveau)
     }
 }
 
+void InterfaceDriver1_Vitesse(unsigned char moteur, unsigned char vitesse)
+{
+    switch(moteur) 
+    {
+        case MOTEUR1: 
+        piloteMoteur1_PWM_metA(vitesse); 
+        break;
+        case MOTEUR2: 
+        piloteMoteur2_PWM_metA(vitesse); 
+        break;
+
+        default: break;
+    }
+}
+
 void InterfaceDriver1_Initialise(void)
 {
-  piloteMoteur1_EN_metA(LOW);
+ // piloteMoteur1_EN_metA(LOW);
   piloteMoteur1_IN1_metA(LOW);
   piloteMoteur1_IN2_metA(LOW);
 
-  piloteMoteur2_EN_metA(LOW);
+ // piloteMoteur2_EN_metA(LOW);
   piloteMoteur2_IN1_metA(LOW);
   piloteMoteur2_IN2_metA(LOW);
 

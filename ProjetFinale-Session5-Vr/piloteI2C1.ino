@@ -52,5 +52,5 @@ void piloteI2C1_ecrisUnEntier(unsigned char Adresse, unsigned int Entier)
 
 void piloteI2C1_initialise(void)
 {
-  Wire.begin();  
+  Wire.begin(23,22);  
 }

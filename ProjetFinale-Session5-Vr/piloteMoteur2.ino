@@ -25,30 +25,34 @@
 
 void piloteMoteur2_EN_metA(unsigned char Niveau)
 {
-  ledcWrite(piloteMoteur2_EN_BROCHE, Niveau);
+  digitalWrite(piloteMoteur2_EN_BROCHE, Niveau);
 }
 
 void piloteMoteur2_IN1_metA(unsigned char Niveau)
 {
-  ledcWrite(piloteMoteur2_IN1_BROCHE, Niveau);
+  digitalWrite(piloteMoteur2_IN1_BROCHE, Niveau);
 }
 
 void piloteMoteur2_IN2_metA(unsigned char Niveau)
 {
-  ledcWrite(piloteMoteur2_IN2_BROCHE, Niveau);
+  digitalWrite(piloteMoteur2_IN2_BROCHE, Niveau);
 }
 
 
+void piloteMoteur2_PWM_metA(unsigned char PWM)
+{
+  ledcWrite(piloteMoteur2_EN_BROCHE, PWM);
+}
 
 void piloteMoteur2_initialise(void)
 {
   
   pinMode(piloteMoteur2_EN_BROCHE,OUTPUT);
+  pinMode(piloteMoteur2_IN2_BROCHE,OUTPUT);
+  pinMode(piloteMoteur2_IN1_BROCHE,OUTPUT);
+
   ledcAttach(piloteMoteur2_EN_BROCHE,2000,8);
 
-#ifdef piloteMoteur2_ETAT_INITIAL_A_UN
-ledcWrite(piloteMoteur2_EN_BROCHE, 1); // Sortie PWM (LED), duty cycle Ã  0	
-#endif
 
 #ifdef piloteMoteur2_ETAT_INITIAL_A_ZERO
 ledcWrite(piloteMoteur2_EN_BROCHE, 0); // Sortie PWM (LED), duty cycle Ã  0	

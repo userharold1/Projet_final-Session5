@@ -17,7 +17,9 @@ Fichier qui contient les fonctions pour communiquer avec le PCF8574
 //  INCLUDES
 // *************************************************************************************************	
 #include <stdio.h>          // Prototype de declarations des fonctions I/O
+#include "main.h"
 #include "piloteI2C1.h"
+#include "InterfaceDetecteurDeLigne.h"
 
 // *************************************************************************************************
 //  FONCTIONS
@@ -35,7 +37,7 @@ unsigned int vLireSuiveurPCF(unsigned char ucVal)
 //
 //**************************************************************************************************
 {  
- return piloteI2C1_lisUnEntier(ucVal); 
+ return piloteI2C1_lisUnOctet(ucVal); 
 }
 
 
@@ -51,5 +53,5 @@ void vEcrireSuiveurPCF(void)
 //
 //**************************************************************************************************
 {  
-  piloteI2C1_ecrisUnEntier(0x44 , 0x7F);
+  piloteI2C1_ecrisUnOctet(0x22 , 0x7F);
 }

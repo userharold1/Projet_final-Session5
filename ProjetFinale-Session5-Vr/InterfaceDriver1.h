@@ -5,10 +5,11 @@
 
 
 //Declarations de fonctions
-void InterfaceDriver1_EN(unsigned char moteur, unsigned char niveau);
+//void InterfaceDriver1_EN(unsigned char moteur, unsigned char niveau);
 void InterfaceDriver1_IN1(unsigned char moteur, unsigned char niveau);
 void InterfaceDriver1_IN2(unsigned char moteur, unsigned char niveau);
-
+void InterfaceDriver1_Vitesse(unsigned char moteur, unsigned char vitesse);
+void InterfaceDriver1_Initialise(void);
 
 
 
