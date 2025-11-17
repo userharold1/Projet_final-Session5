@@ -51,11 +51,11 @@ void processusConduite_avance(void)
   InterfaceDriver2_IN1(MOTEUR4, HIGH);
   InterfaceDriver2_IN2(MOTEUR4, LOW);
 
-  InterfaceDriver1_Vitesse(MOTEUR1, 200);
-  InterfaceDriver1_Vitesse(MOTEUR2, 200);
+  InterfaceDriver1_Vitesse(MOTEUR1, 150);
+  InterfaceDriver1_Vitesse(MOTEUR2, 150);
 
-  InterfaceDriver2_Vitesse(MOTEUR3, 200);
-  InterfaceDriver2_Vitesse(MOTEUR4, 200);
+  InterfaceDriver2_Vitesse(MOTEUR3, 150);
+  InterfaceDriver2_Vitesse(MOTEUR4, 150);
 }
 
 void processusConduite_recul(void)
@@ -75,36 +75,36 @@ void processusConduite_recul(void)
   InterfaceDriver2_IN2(MOTEUR4, HIGH);
 
   // Vitesse 
-  InterfaceDriver1_Vitesse(MOTEUR1, 200);
-  InterfaceDriver1_Vitesse(MOTEUR2, 200);
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
 
-  InterfaceDriver2_Vitesse(MOTEUR3, 200);
-  InterfaceDriver2_Vitesse(MOTEUR4, 200);
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
 }
 
 
 void processusConduite_tourneAGauche(void)
 {
-  // Tous avancent
-  InterfaceDriver1_IN1(MOTEUR1, HIGH);
-  InterfaceDriver1_IN2(MOTEUR1, LOW);
+
+  InterfaceDriver1_IN1(MOTEUR1, LOW);
+  InterfaceDriver1_IN2(MOTEUR1, HIGH);
 
   InterfaceDriver1_IN1(MOTEUR2, HIGH);
   InterfaceDriver1_IN2(MOTEUR2, LOW);
 
-  InterfaceDriver2_IN1(MOTEUR3, HIGH);
-  InterfaceDriver2_IN2(MOTEUR3, LOW);
+  InterfaceDriver2_IN1(MOTEUR3, LOW);
+  InterfaceDriver2_IN2(MOTEUR3, HIGH);
 
   InterfaceDriver2_IN1(MOTEUR4, HIGH);
   InterfaceDriver2_IN2(MOTEUR4, LOW);
 
   // Côté gauche très lent
-  InterfaceDriver1_Vitesse(MOTEUR1, 60);
-  InterfaceDriver2_Vitesse(MOTEUR3, 60);
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
 
   // Côté droit normal
-  InterfaceDriver1_Vitesse(MOTEUR2, 200);
-  InterfaceDriver2_Vitesse(MOTEUR4, 200);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
 }
 
 
@@ -114,22 +114,22 @@ void processusConduite_tourneADroite(void)
   InterfaceDriver1_IN1(MOTEUR1, HIGH);
   InterfaceDriver1_IN2(MOTEUR1, LOW);
 
-  InterfaceDriver1_IN1(MOTEUR2, HIGH);
-  InterfaceDriver1_IN2(MOTEUR2, LOW);
+  InterfaceDriver1_IN1(MOTEUR2, LOW);
+  InterfaceDriver1_IN2(MOTEUR2, HIGH);
 
   InterfaceDriver2_IN1(MOTEUR3, HIGH);
   InterfaceDriver2_IN2(MOTEUR3, LOW);
 
-  InterfaceDriver2_IN1(MOTEUR4, HIGH);
-  InterfaceDriver2_IN2(MOTEUR4, LOW);
+  InterfaceDriver2_IN1(MOTEUR4, LOW);
+  InterfaceDriver2_IN2(MOTEUR4, HIGH);
 
   // Côté droit très lent
-  InterfaceDriver1_Vitesse(MOTEUR2, 60);
-  InterfaceDriver2_Vitesse(MOTEUR4, 60);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
 
   // Côté gauche normal
-  InterfaceDriver1_Vitesse(MOTEUR1, 200);
-  InterfaceDriver2_Vitesse(MOTEUR3, 200);
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
 }
 
 
