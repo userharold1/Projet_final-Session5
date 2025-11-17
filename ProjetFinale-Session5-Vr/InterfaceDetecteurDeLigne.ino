@@ -26,7 +26,7 @@ Fichier qui contient les fonctions pour communiquer avec le PCF8574
 // *************************************************************************************************
 
 //***************************************************************************************************
-unsigned int vLireSuiveurPCF(unsigned char ucVal)
+unsigned int vLireSuiveurPCF(void)
 // Auteur: Harold Kouadio
 // Date: 2025-05-13
 // Version: 1.0
@@ -37,7 +37,7 @@ unsigned int vLireSuiveurPCF(unsigned char ucVal)
 //
 //**************************************************************************************************
 {  
- return piloteI2C1_lisUnOctet(ucVal); 
+ return piloteI2C1_lisUnOctet(ADDRESSPCF); 
 }
 
 
@@ -53,5 +53,5 @@ void vEcrireSuiveurPCF(void)
 //
 //**************************************************************************************************
 {  
-  piloteI2C1_ecrisUnOctet(0x22 , 0x7F);
+  piloteI2C1_ecrisUnOctet(ADDRESSPCF , 0x7F);
 }

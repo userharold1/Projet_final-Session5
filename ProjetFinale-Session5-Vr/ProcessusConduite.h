@@ -5,7 +5,9 @@
 
 void processusConduite_initialise(void);
 void processusConduite_arret(void);
-void processusRoues_Conduite(void);
-void processusRoues_Conduite(void);
+void processusConduite_avance(void);
+void processusConduite_recul(void);
+void processusConduite_tourneADroite(void);
+void processusConduite_tourneAGauche(void);
 
 #endif

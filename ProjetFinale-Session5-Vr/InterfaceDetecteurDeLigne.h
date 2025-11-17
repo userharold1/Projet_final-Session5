@@ -4,7 +4,7 @@
 
 
 void vEcrireSuiveurPCF(void);
-unsigned int vLireSuiveurPCF(unsigned char ucVal);
+unsigned int vLireSuiveurPCF(void));
 
 
 

@@ -29,6 +29,9 @@ void processusConduite_arret(void)
   InterfaceDriver2_IN1(MOTEUR4, LOW);
   InterfaceDriver2_IN2(MOTEUR4, LOW);
 
+  InterfaceDriver1_Vitesse(MOTEUR1, 0);
+  InterfaceDriver1_Vitesse(MOTEUR2, 0);
+
   InterfaceDriver2_Vitesse(MOTEUR3, 0);
   InterfaceDriver2_Vitesse(MOTEUR4, 0);
 }
@@ -45,8 +48,8 @@ void processusConduite_avance(void)
   InterfaceDriver2_IN1(MOTEUR3, HIGH);
   InterfaceDriver2_IN2(MOTEUR3, LOW);
 
-  InterfaceDriver2_IN1(MOTEUR4, LOW);
-  InterfaceDriver2_IN2(MOTEUR4, HIGH);
+  InterfaceDriver2_IN1(MOTEUR4, HIGH);
+  InterfaceDriver2_IN2(MOTEUR4, LOW);
 
   InterfaceDriver1_Vitesse(MOTEUR1, 200);
   InterfaceDriver1_Vitesse(MOTEUR2, 200);
@@ -78,6 +81,58 @@ void processusConduite_recul(void)
   InterfaceDriver2_Vitesse(MOTEUR3, 200);
   InterfaceDriver2_Vitesse(MOTEUR4, 200);
 }
+
+
+void processusConduite_tourneAGauche(void)
+{
+  // Tous avancent
+  InterfaceDriver1_IN1(MOTEUR1, HIGH);
+  InterfaceDriver1_IN2(MOTEUR1, LOW);
+
+  InterfaceDriver1_IN1(MOTEUR2, HIGH);
+  InterfaceDriver1_IN2(MOTEUR2, LOW);
+
+  InterfaceDriver2_IN1(MOTEUR3, HIGH);
+  InterfaceDriver2_IN2(MOTEUR3, LOW);
+
+  InterfaceDriver2_IN1(MOTEUR4, HIGH);
+  InterfaceDriver2_IN2(MOTEUR4, LOW);
+
+  // Côté gauche très lent
+  InterfaceDriver1_Vitesse(MOTEUR1, 60);
+  InterfaceDriver2_Vitesse(MOTEUR3, 60);
+
+  // Côté droit normal
+  InterfaceDriver1_Vitesse(MOTEUR2, 200);
+  InterfaceDriver2_Vitesse(MOTEUR4, 200);
+}
+
+
+void processusConduite_tourneADroite(void)
+{
+  // Tous avancent
+  InterfaceDriver1_IN1(MOTEUR1, HIGH);
+  InterfaceDriver1_IN2(MOTEUR1, LOW);
+
+  InterfaceDriver1_IN1(MOTEUR2, HIGH);
+  InterfaceDriver1_IN2(MOTEUR2, LOW);
+
+  InterfaceDriver2_IN1(MOTEUR3, HIGH);
+  InterfaceDriver2_IN2(MOTEUR3, LOW);
+
+  InterfaceDriver2_IN1(MOTEUR4, HIGH);
+  InterfaceDriver2_IN2(MOTEUR4, LOW);
+
+  // Côté droit très lent
+  InterfaceDriver1_Vitesse(MOTEUR2, 60);
+  InterfaceDriver2_Vitesse(MOTEUR4, 60);
+
+  // Côté gauche normal
+  InterfaceDriver1_Vitesse(MOTEUR1, 200);
+  InterfaceDriver2_Vitesse(MOTEUR3, 200);
+}
+
+
 
 
 
