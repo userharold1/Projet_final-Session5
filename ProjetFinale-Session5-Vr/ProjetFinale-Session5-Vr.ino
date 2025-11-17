@@ -50,7 +50,7 @@ void main_initialise(void)
   piloteMoteur4_initialise();
   InterfaceDriver1_Initialise();
   InterfaceDriver2_Initialise();
-  processusRoues_initialise();
+  processusConduite_initialise();
   piloteAnalogue1_initialise();
   piloteI2C1_initialise();
   

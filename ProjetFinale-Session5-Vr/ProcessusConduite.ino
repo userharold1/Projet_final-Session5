@@ -5,15 +5,15 @@
 // ===============================
 // Fonctions privées
 // ===============================
-void processusRoues_avance(void);
+/*void processusRoues_avance(void);
 void processusRoues_recul(void);
-void roues_arret(void) ;
+void roues_arret(void) ;*/
 // ===============================
 // Fonctions publiques
 // ===============================
 
 
-void roues_arret(void) 
+void processusConduite_arret(void) 
 {
   // Driver 1
   InterfaceDriver1_IN1(MOTEUR1, LOW);
@@ -34,7 +34,7 @@ void roues_arret(void)
 }
 
 // Avancer
-void processusRoues_avance(void)
+void processusConduite_avance(void)
  {
   InterfaceDriver1_IN1(MOTEUR1, HIGH);
   InterfaceDriver1_IN2(MOTEUR1, LOW);
@@ -55,7 +55,7 @@ void processusRoues_avance(void)
   InterfaceDriver2_Vitesse(MOTEUR4, 200);
 }
 
-void processusRoues_recul(void)
+void processusConduite_recul(void)
 {
   // Moteurs sur InterfaceDriver1 (MOTEUR1 et MOTEUR2)
   InterfaceDriver1_IN1(MOTEUR1, LOW);
@@ -81,7 +81,7 @@ void processusRoues_recul(void)
 
 
 
-void processusRoues_initialise(void) 
+void processusConduite_initialise(void) 
 {
-  serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusRoues_recul;
+  serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
 }
