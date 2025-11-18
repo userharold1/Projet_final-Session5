@@ -5,7 +5,7 @@
 //INCLUSIONS
 #include "main.h"
 #include "piloteEntree1.h"
-
+#include "piloteWiFi.h"
 #include "piloteMoteur1.h"
 #include "piloteMoteur2.h"
 #include "piloteMoteur3.h"
@@ -41,6 +41,7 @@ void main_initialise(void)
 {
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
+  piloteWiFiUDP_initialise();
 
   piloteEntree1_initialise();
 
