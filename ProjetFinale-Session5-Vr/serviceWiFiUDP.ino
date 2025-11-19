@@ -14,7 +14,7 @@ SERVICEWIFIUDP serviceWiFiUDP;
 // -------------------------
 void serviceWiFiUDP_attendUnPacket(void)
 {
-  if(serviceWiFiUDP.information = SERVICEWIFIUDP_INFORMATION_DISPONIBLE)
+  if(serviceWiFiUDP.information == SERVICEWIFIUDP_INFORMATION_DISPONIBLE)
   {
     return; 
   }
@@ -23,19 +23,22 @@ void serviceWiFiUDP_attendUnPacket(void)
   {
    // Lire tout paquet UDP s'il y en a un
     char *message = piloteWiFiUDP_litRecu();
-
+    
     // 0 = pas de paquet → rien à faire
     if (message[0] == '\0')
     {
         return;
     }
 
+ 
     // Copier le message reçu dans le service
     strncpy(serviceWiFiUDP.messageRecu, message, SERVICEWIFIUDP_TAILLE_MESSAGE - 1);
     serviceWiFiUDP.messageRecu[SERVICEWIFIUDP_TAILLE_MESSAGE - 1] = '\0';
 
-    // Indiquer au processus qu'un message est disponible
+     // Indiquer au processus qu'un message est disponible
     serviceWiFiUDP.information = SERVICEWIFIUDP_INFORMATION_DISPONIBLE;
+    
+   
   }
     
 }
@@ -47,7 +50,7 @@ void serviceWiFiUDP_attendUnPacket(void)
 void serviceWiFiUDP_attendUneRequete(void)
 {
     // Aucune requête → retourner immédiatement
-    if (serviceWiFiUDP.requete == SERVICEWIFIUDP_REQUETE_TRAITER)
+    if (serviceWiFiUDP.requete == SERVICEWIFIUDP_REQUETE_TRAITEE)
     {
         return;
     }
@@ -59,7 +62,7 @@ void serviceWiFiUDP_attendUneRequete(void)
     }
 
     // Marquer la requête comme traitée
-    serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_TRAITER;
+    serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_TRAITEE;
 }
 
 

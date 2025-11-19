@@ -4,8 +4,8 @@
 
 //INCLUSIONS
 #include "main.h"
-#include "piloteEntree1.h"
-#include "piloteWiFi.h"
+
+#include "piloteWiFiUDP.h"
 #include "piloteMoteur1.h"
 #include "piloteMoteur2.h"
 #include "piloteMoteur3.h"
@@ -13,18 +13,17 @@
 #include "InterfaceDriver1.h"
 #include "InterfaceDriver2.h"
 
-#include "piloteAnalogue1.h"
+
 #include "piloteI2C1.h"
 #include "serviceTaskServer.h"
 #include "serviceBaseDeTemps.h"
 
-#include "interfaceEntree1.h"
 #include "InterfaceDetecteurDeLigne.h"
-#include "processusTacheLenteDansLoop.h"
-#include "processusDemonstration.h"
+
 #include "ProcessusSuiveurDeLigne.h"
 #include "ProcessusConduite.h"
-
+#include "processusVehicule.h"
+#include "serviceWiFiUDP.h"
 //Definitions privees
 //pas de definitions privees
 
@@ -43,8 +42,8 @@ void main_initialise(void)
   serviceBaseDeTemps_initialise();
   piloteWiFiUDP_initialise();
 
-  piloteEntree1_initialise();
-
+  serviceWiFiUDP_initialise();
+  processusVehicule_initialise();
   piloteMoteur1_initialise();
   piloteMoteur2_initialise();
   piloteMoteur3_initialise();
@@ -52,14 +51,12 @@ void main_initialise(void)
   InterfaceDriver1_Initialise();
   InterfaceDriver2_Initialise();
   processusConduite_initialise();
-  piloteAnalogue1_initialise();
+
   piloteI2C1_initialise();
   
-  interfaceEntree1_initialise();
-  processusDemonstration_initialise();
-  processusTacheLenteDansLoop_initialise();
-  processusTacheLenteDansLoop_initialise();
+ 
   processusSuiveurDeLigne_initialise();
+  processusVehicule_initialise();
 }
 
 void setup(void) 

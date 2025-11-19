@@ -6,7 +6,7 @@
 #include "main.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
-#include "piloteWiFi.h"
+#include "piloteWiFiUDP.h"
 
 
 //Definitions privees
@@ -34,20 +34,35 @@ void piloteWiFiUDP_Transmet(unsigned char octet)
 
 char* piloteWiFiUDP_litRecu(void)
 {
-  int longueur = udp.read(message, sizeof(message) - 1);
-  message[longueur] = '\0';
+    int packetSize = udp.parsePacket();
 
-  return message;
+    if (packetSize)          // → un paquet est disponible
+    {
+        int longueur = udp.read(message, sizeof(message) - 1);
+
+        if (longueur < 0)
+        {
+          longueur = 0;
+        }
+        message[longueur] = '\0';
+    }
+    else                     // → aucun paquet
+    {
+        message[0] = '\0';   // IMPORTANT : message vide = aucun msg reçu
+    }
+
+    return message;
 }
+
 
 
 void piloteWiFiUDP_initialise(void)
 {
   // Démarage Mode Wifi AP
   WiFi.mode(WIFI_AP);
-  WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
-  delay(100);
   WiFi.softAPConfig(LOCALIPAP, GETAWAYAP, SUBNETAP);
+  delay(100);
+  WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Soft-AP IP address = ");
   Serial.println(WiFi.softAPIP());
 
