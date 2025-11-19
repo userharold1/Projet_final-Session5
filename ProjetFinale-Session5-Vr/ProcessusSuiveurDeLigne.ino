@@ -2,6 +2,7 @@
 #include "InterfaceDetecteurDeLigne.h"
 #include "ProcessusSuiveurDeLigne.h"
 #include "ProcessusConduite.h"
+#include "processusVehicule.h"
 
 //**********************************
 //Variables Glogales
@@ -18,9 +19,12 @@ void processusSuiveurDeLigne_Suit (void);
 
 void processusSuiveurDeLigne_Suit (void)
 {
+     if (processusVehicule.controleSuiveur != SUIVEUR_ACTIF)
+    {
+      return;
+    }
+
  unsigned int ValeurSuiveur = vLireSuiveurPCF();
-
-
 
 if (ValeurSuiveur == 0x08)
 {

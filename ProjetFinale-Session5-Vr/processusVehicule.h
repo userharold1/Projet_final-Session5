@@ -13,12 +13,15 @@
 #define POSITION_LIGNE_MILIEU_RETOUR   3
 #define POSITION_LIGNE_DEBUT           4
 
+#define SUIVEUR_ACTIF 1
+#define SUIVEUR_NON_ACTIF 0
 
 // STRUCTURE DU PROCESSUS
 typedef struct
 {
   unsigned char CompteurPosi; 
   unsigned char derniereLignePleine ;
+  unsigned char controleSuiveur;
 
 } PROCESSUSVEHICULE;
 
