@@ -8,12 +8,6 @@
 #include "ProcessusSuiveurDeLigne.h"
 
 //================================
-// Define
-//================================
-DELAIROTATION180 1900
-DELAIROTATION90  800
-
-//================================
 // Variables Globales
 //================================
 
@@ -25,7 +19,6 @@ PROCESSUSVEHICULE processusVehicule;
 void processusVehicule_gere (void);
 void processusVehicule_Suit(void);
 void processusVehicule_Positionnement(void);
-void processusVehicule_rotation180(void);
 // ===============================
 // Fonctions publiques
 // ===============================
@@ -59,6 +52,7 @@ void processusVehicule_Suit(void)
     {
       serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneAGauche;
     }
+    // CORRECTION : Utilisé == au lieu de =
     else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_PERDU)
     {
       serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
@@ -129,24 +123,19 @@ void processusVehicule_rotation180(void)
   {
     compteurRotation = millis();
     rotationEnCours = true;
-    
-    // IMPORTANT : Désactiver le suiveur AVANT de commencer la rotation
     processusVehicule.controleSuiveur = SUIVEUR_NON_ACTIF;
   }
 
-  // Action de rotation
+  // Action de rotation (ajuster selon ton robot: tourneADroite ou tourneAGauche)
   serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneADroite;
 
-  // Durée de rotation à ajuster selon ton robot (1050ms)
-  if(millis() - compteurRotation >= 1900) 
+  // Durée de rotation à ajuster selon ton robot (900ms par défaut)
+  if(millis() - compteurRotation >= 1050) 
   {
-    // Arrêter les moteurs brièvement
+    // Arrêter les moteurs
     serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
-    
-    // Petit délai pour stabiliser (optionnel, peut aider)
-   // delay(50);
 
-    // Remettre le compteur à 0 seulement APRÈS la rotation complète
+    // CORRECTION : Remettre le compteur à 0 seulement APRÈS la rotation
     if(processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT)
     {
       processusVehicule.CompteurPosi = 0;
@@ -156,7 +145,6 @@ void processusVehicule_rotation180(void)
     processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
     
     // Forcer la sortie de la détection de ligne pleine
-    // Le robot est encore sur la ligne, on ignore jusqu'à ce qu'il la quitte
     processusVehicule.derniereLignePleine = 1;
 
     // Réinitialiser les variables statiques

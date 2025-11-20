@@ -53,11 +53,6 @@ if (ValeurSuiveur == 0x7F ) //|| ValeurSuiveur == 0x00)
    // serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
 }
 
-if(ValeurSuiveur == 0x00)
-{
-   processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_PERDU;
-}
-
 }
 
 }
