@@ -25,10 +25,12 @@ void main_initialise(void)
 {
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
+  serviceProtocole637_initialise();
   piloteWiFiUDP_initialise();
-
-  serviceWiFiUDP_initialise();
   piloteI2C1_initialise();
+  piloteUART_initialise();
+  processusTourDeCOM_initialise();
+  serviceWiFiUDP_initialise();
 }
 
 void setup(void) 

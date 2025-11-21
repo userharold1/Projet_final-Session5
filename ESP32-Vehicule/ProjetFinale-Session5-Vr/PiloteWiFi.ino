@@ -25,10 +25,10 @@ static char message[255];
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
-void piloteWiFiUDP_Transmet(unsigned char octet)
+void piloteWiFiUDP_Transmet(const char* msg)
 {
   udp.beginPacket(IPDEST,PORTDEST);
-  udp.print(octet);
+  udp.print(msg);
   udp.endPacket();
 }
 

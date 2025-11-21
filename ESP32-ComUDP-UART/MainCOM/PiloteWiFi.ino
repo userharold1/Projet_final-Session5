@@ -25,10 +25,10 @@ static char message[255];
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
-void piloteWiFiUDP_Transmet(unsigned char octet)
+void piloteWiFiUDP_Transmet(const char* msg)
 {
   udp.beginPacket(IPDEST,PORTDEST);
-  udp.print(octet);
+  udp.print(msg);
   udp.endPacket();
 }
 
@@ -59,12 +59,28 @@ char* piloteWiFiUDP_litRecu(void)
 void piloteWiFiUDP_initialise(void)
 {
   // Démarage Mode Wifi AP
-  WiFi.mode(WIFI_AP);
-  WiFi.softAPConfig(LOCALIPAP, GETAWAYAP, SUBNETAP);
+  WiFi.mode(WIFI_STA);
+
+  /*WiFi.softAPConfig(LOCALIPAP, GETAWAYAP, SUBNETAP);
   delay(100);
   WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Soft-AP IP address = ");
-  Serial.println(WiFi.softAPIP());
+  Serial.println(WiFi.softAPIP());*/
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Connexion WiFi (STA) à ");
+  Serial.print(WIFI_SSID);
+  Serial.println(" ...");
+
+   while (WiFi.status() != WL_CONNECTED) 
+    {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.println("Connecté au WiFi !");
+    Serial.print("Adresse IP: ");
+    Serial.println(WiFi.localIP());
 
   // Démarrage du port UDP
   udp.begin(PORTDEST);

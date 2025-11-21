@@ -10,8 +10,8 @@
 //================================
 // Define
 //================================
-DELAIROTATION180 1900
-DELAIROTATION90  800
+#define DELAIROTATION180 1900
+#define DELAIROTATION90  800
 
 //================================
 // Variables Globales
