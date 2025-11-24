@@ -4,7 +4,7 @@
 
 
 void piloteWiFiUDP_initialise(void);
-void piloteWiFiUDP_Transmet(unsigned char octet);
+void piloteWiFiUDP_Transmet(const char* msg);
 char* piloteWiFiUDP_litRecu(void);
 
 #endif 

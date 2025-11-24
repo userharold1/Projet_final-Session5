@@ -22,11 +22,11 @@
 void processusTourDeCOM_attendUneRequete(void)
 {
     // On attend un paquet UDP disponible
-    if (serviceWiFiUDP.information != INFORMATION_DISPONIBLE)
+     if (serviceWiFiUDP.information != INFORMATION_DISPONIBLE)
     {
         return;
     }
-
+ 
     // Passe à la prochaine étape : copie
     serviceBaseDeTemps_execute[PROCESSUSTOURDECOM_TRANSMISSION_PHASE] = processusTourDeCOM_TransmissionUART;
 }
@@ -63,11 +63,10 @@ void processusTourDeCOM_TransmissionUART(void)
 
 void processusTourDeCOM_AttendReceptionUART(void)
 {
-    if (serviceProtocole637.information != INFORMATION_DISPONIBLE)
+   if (serviceProtocole637.information != INFORMATION_DISPONIBLE)
     {
         return;
     }
-    
     // Une trame UART complète a été reçue !
     serviceBaseDeTemps_execute[PROCESSUSTOURDECOM_RECEPTION_PHASE] = processusTourDeCOM_ReceptionUART;
 }

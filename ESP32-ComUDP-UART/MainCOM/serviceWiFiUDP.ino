@@ -56,10 +56,7 @@ void serviceWiFiUDP_attendUneRequete(void)
     }
 
     // Transmettre le message texte (char[])
-    for (int i = 0; serviceWiFiUDP.messageATransmettre[i] != '\0'; i++)
-    {
-        piloteWiFiUDP_Transmet(serviceWiFiUDP.messageATransmettre[i]);
-    }
+  piloteWiFiUDP_Transmet(serviceWiFiUDP.messageATransmettre);
 
     // Marquer la requête comme traitée
     serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_TRAITEE;

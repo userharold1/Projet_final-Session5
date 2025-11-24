@@ -26,6 +26,7 @@ void processusVehicule_gere (void);
 void processusVehicule_Suit(void);
 void processusVehicule_Positionnement(void);
 void processusVehicule_rotation180(void);
+void processusVehicule_AttenteInstruction(void);
 // ===============================
 // Fonctions publiques
 // ===============================
@@ -89,25 +90,31 @@ void processusVehicule_Positionnement(void)
   switch(processusVehicule.CompteurPosi)
   {
     case POSITION_LIGNE_MILIEU_AVANT:
+     strcpy(serviceWiFiUDP.messageATransmettre, "MilieuA");
       // Reprendre le suivi vers la ligne de fin
       processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
       serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
       break;
 
     case POSITION_LIGNE_FIN:
+      strcpy(serviceWiFiUDP.messageATransmettre, "Tri");
       // Ligne de fin → faire un 180°
       processusVehicule.controleSuiveur = SUIVEUR_NON_ACTIF;
       processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
-      serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_rotation180;
+      serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_AttenteInstruction;
       break;
 
     case POSITION_LIGNE_MILIEU_RETOUR:
       // Retour en passant la ligne du milieu
+      strcpy(serviceWiFiUDP.messageATransmettre, "MilieuR");
+      serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_A_TRAITER;
       processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
       serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
+      
       break;
 
     case POSITION_LIGNE_DEBUT:
+      strcpy(serviceWiFiUDP.messageATransmettre, "Pese");
       // Arrivé à la ligne début → rotation 180° puis réinitialiser
       processusVehicule.controleSuiveur = SUIVEUR_NON_ACTIF;
       processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
@@ -138,7 +145,7 @@ void processusVehicule_rotation180(void)
   serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneADroite;
 
   // Durée de rotation à ajuster selon ton robot (1050ms)
-  if(millis() - compteurRotation >= 1900) 
+  if(millis() - compteurRotation >= DELAIROTATION180) 
   {
     // Arrêter les moteurs brièvement
     serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
@@ -168,8 +175,31 @@ void processusVehicule_rotation180(void)
   }
 }
 
+void processusVehicule_AttenteInstruction(void)
+{
+    // Toujours arrêter les moteurs ici
+    serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
+
+    // Vérifier si un message UDP est disponible
+    if(serviceWiFiUDP.information == SERVICEWIFIUDP_INFORMATION_DISPONIBLE)
+    {
+        if((strcmp(serviceWiFiUDP.messageRecu, "Metal") == 0) || (strcmp(serviceWiFiUDP.messageRecu, "Rouge") == 0)  )
+        {
+          if(processusVehicule.CompteurPosi == POSITION_LIGNE_FIN )
+          {
+             serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_rotation180;
+          }   
+        }
+
+        // Toujours vider le buffer UDP
+        serviceWiFiUDP.information = SERVICEWIFIUDP_INFORMATION_TRAITEE;
+    }
+}
+
+
 void processusVehicule_initialise(void)
 {
+     
   processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
   processusVehicule.CompteurPosi = POSITION_DEPART;
   processusVehicule.derniereLignePleine = 0;

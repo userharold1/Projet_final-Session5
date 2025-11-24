@@ -61,12 +61,6 @@ void piloteWiFiUDP_initialise(void)
   // Démarage Mode Wifi AP
   WiFi.mode(WIFI_STA);
 
-  /*WiFi.softAPConfig(LOCALIPAP, GETAWAYAP, SUBNETAP);
-  delay(100);
-  WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
-  Serial.print("Soft-AP IP address = ");
-  Serial.println(WiFi.softAPIP());*/
-
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connexion WiFi (STA) à ");
   Serial.print(WIFI_SSID);

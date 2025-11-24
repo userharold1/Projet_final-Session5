@@ -31,7 +31,7 @@
 #define WIFI_PASSWORD "12345678" 
 #define LOCAL_PORT 23506
 static const IPAddress IPDEST (192,168,20,1);
-#define PORTDEST 56315
+#define PORTDEST 23506
 
 //ServiceProtocole637
 #define SERVICEPROTOCOLE637_PHASE_RECEPTION 0
