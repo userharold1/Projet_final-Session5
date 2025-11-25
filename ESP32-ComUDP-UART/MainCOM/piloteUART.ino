@@ -50,6 +50,6 @@ void piloteUART_transmet(unsigned char Octet)
 void piloteUART_initialise(void)
 
 {                    
-  UARTport.begin(115200, SERIAL_8N1, PILOTEUART_RX_PIN, PILOTEUART_TX_PIN);
+  UARTport.begin(19200, SERIAL_8N1, PILOTEUART_RX_PIN, PILOTEUART_TX_PIN);
  
 }

@@ -74,6 +74,7 @@ void processusTourDeCOM_AttendReceptionUART(void)
 
 void processusTourDeCOM_ReceptionUART(void)
 {
+    Serial.println((char*)serviceProtocole637.octetsRecus);
     // Copier la trame reçue vers messageATransmettre
     int i;
     for (i = 0; i < serviceProtocole637.nombreARecevoir && i < SERVICEWIFIUDP_TAILLE_MESSAGE - 1; i++)
