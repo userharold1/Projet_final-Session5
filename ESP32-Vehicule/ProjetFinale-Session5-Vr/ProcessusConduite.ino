@@ -14,24 +14,25 @@
 void processusConduite_arret(void) 
 {
   // Driver 1
-  InterfaceDriver1_IN1(MOTEUR1, LOW);
-  InterfaceDriver1_IN2(MOTEUR1, LOW);
+  InterfaceDriver1_IN1(MOTEUR1, HIGH);  // ← HIGH au lieu de LOW
+  InterfaceDriver1_IN2(MOTEUR1, HIGH);  // ← HIGH au lieu de LOW
 
-  InterfaceDriver1_IN1(MOTEUR2, LOW);
-  InterfaceDriver1_IN2(MOTEUR2, LOW);
+  InterfaceDriver1_IN1(MOTEUR2, HIGH);
+  InterfaceDriver1_IN2(MOTEUR2, HIGH);
 
   // Driver 2
-  InterfaceDriver2_IN1(MOTEUR3, LOW);
-  InterfaceDriver2_IN2(MOTEUR3, LOW);
+  InterfaceDriver2_IN1(MOTEUR3, HIGH);
+  InterfaceDriver2_IN2(MOTEUR3, HIGH);
 
-  InterfaceDriver2_IN1(MOTEUR4, LOW);
-  InterfaceDriver2_IN2(MOTEUR4, LOW);
+  InterfaceDriver2_IN1(MOTEUR4, HIGH);
+  InterfaceDriver2_IN2(MOTEUR4, HIGH);
 
-  InterfaceDriver1_Vitesse(MOTEUR1, 0);
-  InterfaceDriver1_Vitesse(MOTEUR2, 0);
+  // Vitesse à fond pour maximiser le freinage
+  InterfaceDriver1_Vitesse(MOTEUR1, 255);  // Maximum
+  InterfaceDriver1_Vitesse(MOTEUR2, 255);
 
-  InterfaceDriver2_Vitesse(MOTEUR3, 0);
-  InterfaceDriver2_Vitesse(MOTEUR4, 0);
+  InterfaceDriver2_Vitesse(MOTEUR3, 255);
+  InterfaceDriver2_Vitesse(MOTEUR4, 255);
 }
 
 // Avancer

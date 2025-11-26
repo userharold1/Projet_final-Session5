@@ -12,7 +12,7 @@
 //================================
 #define DELAIROTATION180 1900
 #define DELAIROTATION90  1000
-
+#define DELAI_RECUL_AVANT_ROTATION 200
 //================================
 // Variables Globales
 //================================
@@ -167,6 +167,12 @@ void processusVehicule_rotation180(void)
   {
     compteurRotation = millis();
     rotationEnCours = true;
+
+    unsigned long Trecul = millis();
+    while (millis() - Trecul < DELAI_RECUL_AVANT_ROTATION)
+    {
+        serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_recul;
+    }
     
     // IMPORTANT : Désactiver le suiveur AVANT de commencer la rotation
     processusVehicule.controleSuiveur = SUIVEUR_NON_ACTIF;
@@ -229,12 +235,12 @@ void processusVehicule_SuitEnRecul(void)
         else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_TOURNEADROITE)
         {
             // Garder tourneADroite (rotation sur place)
-            serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneADroite_vitesseFaible;
+            serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] =  processusConduite_tourneADroite_vitesseFaible;
         }
         else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_TOURNEAGAUCHE)
         {
             // Garder tourneAGauche (rotation sur place)
-            serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneAGauche_vitesseFaible;
+            serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] =processusConduite_tourneAGauche_vitesseFaible;
         }
         else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_PERDU)
         {
@@ -299,7 +305,7 @@ void processusVehicule_AttenteInstruction(void)
     {
         if((strcmp(serviceWiFiUDP.messageRecu, "Part") == 0))
         {
-          if(processusVehicule.CompteurPosi == POSITION_LIGNE_FIN )
+          if(processusVehicule.CompteurPosi == POSITION_LIGNE_FIN || processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT )
           {
              serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_rotation180;
           }   
