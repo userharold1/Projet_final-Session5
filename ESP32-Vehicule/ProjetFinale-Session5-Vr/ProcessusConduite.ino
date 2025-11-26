@@ -145,11 +145,11 @@ void processusConduite_tourneADroite_vitesseFaible(void)
   InterfaceDriver2_IN2(MOTEUR4, HIGH);
 
   // vitesse réduite
-  InterfaceDriver1_Vitesse(MOTEUR1, 130);
-  InterfaceDriver1_Vitesse(MOTEUR2, 130);
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
 
-  InterfaceDriver2_Vitesse(MOTEUR3, 130);
-  InterfaceDriver2_Vitesse(MOTEUR4, 130);
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
 }
 
 void processusConduite_tourneAGauche_vitesseFaible(void)
@@ -166,11 +166,11 @@ void processusConduite_tourneAGauche_vitesseFaible(void)
   InterfaceDriver2_IN1(MOTEUR4, HIGH);
   InterfaceDriver2_IN2(MOTEUR4, LOW);
 
-  InterfaceDriver1_Vitesse(MOTEUR1, 130);
-  InterfaceDriver1_Vitesse(MOTEUR2, 130);
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
 
-  InterfaceDriver2_Vitesse(MOTEUR3, 130);
-  InterfaceDriver2_Vitesse(MOTEUR4, 130);
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
 }
 
 void processusConduite_recul_lent(void)
@@ -190,17 +190,14 @@ void processusConduite_recul_lent(void)
   InterfaceDriver2_IN2(MOTEUR4, HIGH);
 
   // vitesse réduite
-  InterfaceDriver1_Vitesse(MOTEUR1, 110);
-  InterfaceDriver1_Vitesse(MOTEUR2, 110);
-  InterfaceDriver2_Vitesse(MOTEUR3, 110);
-  InterfaceDriver2_Vitesse(MOTEUR4, 110);
+  InterfaceDriver1_Vitesse(MOTEUR1, 150);
+  InterfaceDriver1_Vitesse(MOTEUR2, 150);
+  InterfaceDriver2_Vitesse(MOTEUR3, 150);
+  InterfaceDriver2_Vitesse(MOTEUR4, 150);
 }
 
 
-
-
-
-
+       
 void processusConduite_initialise(void) 
 {
   serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
