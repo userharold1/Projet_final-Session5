@@ -29,7 +29,6 @@ typedef struct
   unsigned char derniereLignePleine;
   unsigned char controleSuiveur;
   unsigned char retoune;
-  unsigned char ancienBloc;
   unsigned char blocActif;
 } PROCESSUSVEHICULE;
 

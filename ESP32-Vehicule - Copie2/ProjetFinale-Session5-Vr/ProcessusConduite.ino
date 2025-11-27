@@ -131,7 +131,48 @@ void processusConduite_tourneADroite(void)
   InterfaceDriver2_Vitesse(MOTEUR3, 205);
 }
 
+void processusConduite_tourneADroite_vitesseFaible(void)
+{
+  InterfaceDriver1_IN1(MOTEUR1, HIGH);
+  InterfaceDriver1_IN2(MOTEUR1, LOW);
 
+  InterfaceDriver1_IN1(MOTEUR2, LOW);
+  InterfaceDriver1_IN2(MOTEUR2, HIGH);
+
+  InterfaceDriver2_IN1(MOTEUR3, HIGH);
+  InterfaceDriver2_IN2(MOTEUR3, LOW);
+
+  InterfaceDriver2_IN1(MOTEUR4, LOW);
+  InterfaceDriver2_IN2(MOTEUR4, HIGH);
+
+  // vitesse réduite
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
+
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
+}
+
+void processusConduite_tourneAGauche_vitesseFaible(void)
+{
+  InterfaceDriver1_IN1(MOTEUR1, LOW);
+  InterfaceDriver1_IN2(MOTEUR1, HIGH);
+
+  InterfaceDriver1_IN1(MOTEUR2, HIGH);
+  InterfaceDriver1_IN2(MOTEUR2, LOW);
+
+  InterfaceDriver2_IN1(MOTEUR3, LOW);
+  InterfaceDriver2_IN2(MOTEUR3, HIGH);
+
+  InterfaceDriver2_IN1(MOTEUR4, HIGH);
+  InterfaceDriver2_IN2(MOTEUR4, LOW);
+
+  InterfaceDriver1_Vitesse(MOTEUR1, 180);
+  InterfaceDriver1_Vitesse(MOTEUR2, 180);
+
+  InterfaceDriver2_Vitesse(MOTEUR3, 180);
+  InterfaceDriver2_Vitesse(MOTEUR4, 180);
+}
 
 void processusConduite_recul_lent(void)
 {

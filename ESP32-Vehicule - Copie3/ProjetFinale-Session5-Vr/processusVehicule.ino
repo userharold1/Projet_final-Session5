@@ -10,10 +10,10 @@
 //================================
 // Define
 //================================
-#define DELAIROTATION180 2000
+#define DELAIROTATION180 900
 #define DELAIROTATION90  500
-#define DELAI_RECUL_AVANT_ROTATION 200
-//#define DELAI_ATTENTE_AVANT_ROTATION 2000
+#define DELAI_RECUL_AVANT_ROTATION 500
+#define DELAI_ATTENTE_AVANT_ROTATION 2000
 //================================
 // Variables Globales
 //================================
@@ -77,10 +77,10 @@ void processusVehicule_Suit(void)
     {
       serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneAGauche;
     }
-    /*else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_PERDU)
+    else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_PERDU)
     {
       serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
-    }*/
+    }
 
     // Détection d'une ligne pleine (positionnement)
     if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_ARRET)
@@ -166,86 +166,83 @@ void processusVehicule_Positionnement(void)
 
 void processusVehicule_rotation180(void)
 {
-    static unsigned long debutAction = 0;
-    static uint8_t etape = 0;
+    static unsigned long compteurRotation = 0;
+    static bool rotationEnCours = false;
 
-    // Étape 0 : RECUL non bloquant
-    if(etape == 0)
+    if(!rotationEnCours)
     {
-        if(debutAction == 0)
+        rotationEnCours = true;
+        compteurRotation = millis();
+
+        unsigned long Trecul = millis();
+        while (millis() - Trecul < DELAI_RECUL_AVANT_ROTATION)
         {
-            debutAction = millis();
-            processusVehicule.controleSuiveur = SUIVEUR_NON_ACTIF;
+            serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_recul;
         }
 
-        serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_recul;
-
-        if(millis() - debutAction >= DELAI_RECUL_AVANT_ROTATION)
-        {
-            etape = 1;
-            debutAction = millis();
-        }
-       return;
+        processusVehicule.controleSuiveur = SUIVEUR_NON_ACTIF;
     }
 
-    // Étape 1 : ROTATION non bloquante
-    if(etape == 1)
-    {
-        serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneADroite;
+    serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneADroite;
 
-        if(millis() - debutAction >= DELAIROTATION180)
+    if(millis() - compteurRotation >= DELAIROTATION180)
+    {
+        unsigned long TArrêt = millis();
+         while (millis() - TArrêt < DELAI_ATTENTE_AVANT_ROTATION)
         {
-            etape = 2;
-            debutAction = 0;
+           serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
         }
-        return;
-    }
 
-
-    // Étape 2 : FIN DE ROTATION
-    if(etape == 2)
-    {
         serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
 
-        // On revient entre DEBUT et MILIEU
-        
-        processusVehicule.derniereLignePleine = 1;
-
-       if(processusVehicule.CompteurPosi == POSITION_LIGNE_FIN)
-       {
-        processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
-        processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
-        serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
-      }
-      else if(processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT)
-      {
-          if(processusVehicule.blocActif == BLOCROUGE)
+        // ==========================================
+        //         CAS 1 : 180 depuis LIGNE FIN
+        // ==========================================
+        if(processusVehicule.CompteurPosi == POSITION_LIGNE_FIN)
         {
-            processusVehicule.CompteurPosi = POSITION_DEPART;
-            serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_AttenteInstruction;
-            
-        }
-        else
-        {
-            processusVehicule.CompteurPosi = POSITION_DEPART;
+            // On repart immédiatement
             processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
             processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
             serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
+
+            rotationEnCours = false;
+            compteurRotation = 0;
+            return;
         }
 
-      }
-    else if(processusVehicule.CompteurPosi == POSITION_DEPART)
-    {
-        // 180 lancé depuis AttenteInstruction (cas metal -> rouge ou metal -> metal)
-        // → après rotation, on veut SUIVRE la ligne
+        // ==========================================
+        //         CAS 2 : 180 depuis LIGNE DEBUT
+        // ==========================================
+        if(processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT)
+        {
+            // IMPORTANT : on remet la position au départ
+            processusVehicule.CompteurPosi = POSITION_DEPART;
+
+            if(processusVehicule.blocActif == BLOCROUGE)
+            {
+                // ROUGE => attendre instruction
+                serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_AttenteInstruction;
+            }
+            else  // METAL
+            {
+                // METAL => repartir en suivi
+                processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
+                processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
+                serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
+            }
+
+            rotationEnCours = false;
+            compteurRotation = 0;
+            return;
+        }
+
+        // Autre cas improbable → sécurité
+        processusVehicule.CompteurPosi = POSITION_DEPART;
         processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
-        processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
         serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
-    }
-        
-        // RESET pour la prochaine fois
-        etape = 0;
-        return;
+
+        rotationEnCours = false;
+        compteurRotation = 0;
     }
 }
 
@@ -273,7 +270,7 @@ void processusVehicule_AttenteInstruction(void)
         }
 
         // === CAS LIGNE DEBUT ===
-        if(processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT)
+        if(processusVehicule.CompteurPosi == POSITION_DEPART)
         {
             processusVehicule.ancienBloc = processusVehicule.blocActif;
 
@@ -284,12 +281,10 @@ void processusVehicule_AttenteInstruction(void)
 
                 if(processusVehicule.ancienBloc == BLOCMETAL)    // metal -> rouge = 180
                 {
-                  processusVehicule.CompteurPosi = POSITION_DEPART;
                     serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_rotation180;
                 }
-                else if(processusVehicule.ancienBloc == BLOCROUGE)  // rouge -> rouge = pas 180
+                else  // rouge -> rouge = pas 180
                 {
-                   
                     processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
                     processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
                     serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
@@ -307,7 +302,6 @@ void processusVehicule_AttenteInstruction(void)
                 }
                 else  // rouge -> metal = pas 180
                 {
-                    
                     processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
                     processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
                     serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
