@@ -26,7 +26,6 @@ void main_initialise(void)
   serviceBaseDeTemps_initialise();
   serviceProtocole637_initialise();
   piloteWiFiUDP_initialise();
-  piloteI2C1_initialise();
   piloteUART_initialise();
   processusTourDeCOM_initialise();
   serviceWiFiUDP_initialise();

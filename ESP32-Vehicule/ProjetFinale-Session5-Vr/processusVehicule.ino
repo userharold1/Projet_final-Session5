@@ -10,7 +10,7 @@
 //================================
 // Define
 //================================
-#define DELAIROTATION180 2000
+#define DELAIROTATION180 2100
 #define DELAIROTATION90  500
 #define DELAI_RECUL_AVANT_ROTATION 200
 //#define DELAI_ATTENTE_AVANT_ROTATION 2000
@@ -216,7 +216,7 @@ void processusVehicule_rotation180(void)
         processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
         processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
         serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
-      }
+       }
       else if(processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT)
       {
           if(processusVehicule.blocActif == BLOCROUGE)
@@ -273,7 +273,7 @@ void processusVehicule_AttenteInstruction(void)
         }
 
         // === CAS LIGNE DEBUT ===
-        if(processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT)
+        if ((processusVehicule.CompteurPosi == POSITION_DEPART) || (processusVehicule.CompteurPosi == POSITION_LIGNE_DEBUT))
         {
             processusVehicule.ancienBloc = processusVehicule.blocActif;
 
@@ -323,7 +323,7 @@ void processusVehicule_AttenteInstruction(void)
 
 void processusVehicule_initialise(void)
 {
-   processusVehicule.blocActif = AUCUNBLOC;
+  processusVehicule.blocActif = AUCUNBLOC;
   processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
   processusVehicule.CompteurPosi = POSITION_DEPART;
   processusVehicule.derniereLignePleine = 0;
