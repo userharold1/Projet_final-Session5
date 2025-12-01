@@ -2,7 +2,7 @@
 <project>
     <fileVersion>3</fileVersion>
     <configuration>
-        <name>247-637 S-0001 V7</name>
+        <name>GestionDeTransport</name>
         <toolchain>
             <name>ARM</name>
         </toolchain>
@@ -207,7 +207,7 @@
                 <option>
                     <name>TrustZoneModes</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
             </data>
         </settings>
@@ -1074,6 +1074,12 @@
             <group>
                 <name>INTERFACE</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceS0008.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceS0008.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\interfaceT1.c</name>
                 </file>
                 <file>
@@ -1088,6 +1094,9 @@
             </group>
             <group>
                 <name>PILOTE</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\piloteCAN1.c</name>
+                </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\piloteIOT1.c</name>
                 </file>
@@ -1110,16 +1119,16 @@
             <group>
                 <name>PROCESSUS</name>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\processusBoutonTransmetteur.c</name>
+                    <name>$PROJ_DIR$\..\Src\ProcessusCAN_UART.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\ProcessusCAN_UART.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\processusClignotant.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\processusClignotant.h</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Src\processusReceptionEtat.c</name>
                 </file>
             </group>
             <group>
@@ -1129,6 +1138,9 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\serviceBaseDeTemps.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\ServiceCAN637.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\serviceProtocole637.c</name>
@@ -1160,6 +1172,9 @@
             <name>STM32F4xx_HAL_Driver</name>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>

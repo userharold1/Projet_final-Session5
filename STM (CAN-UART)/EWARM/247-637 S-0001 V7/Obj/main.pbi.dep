@@ -39,6 +39,10 @@ main.pbi: \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_tim.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_uart.h \
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/serviceProtocole637.h \
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/serviceCan637.h \
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/ProcessusCAN_UART.h \
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/piloteCAN1.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/piloteTimer6Up.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/piloteUSART2.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/piloteIOT1.h \
@@ -46,6 +50,4 @@ main.pbi: \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/serviceBaseDeTemps.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/interfaceT1.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/interfaceT2.h \
-  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/serviceProtocole637.h \
-  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/processusClignotant.h \
-  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/processusReceptionEtat.h
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/processusClignotant.h

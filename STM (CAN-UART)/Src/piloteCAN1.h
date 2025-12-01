@@ -4,7 +4,7 @@
 //MODULE: piloteCAN1
 //DESCRIPTION: pour utiliser le CAN1
 //HISTORIQUE:
-// 2018-11-12, Yves Roy, creation
+// 2015-12-01, Harold Kouadio, creation
 
 //DEFINITIONS REQUISES PAR LE MODULE:
 //Dependances materielle
@@ -12,9 +12,17 @@
 
 //Dependances logicielles
 //(copiez et adaptez ce qui suit dans "main.h")
+//Dependances logicielles
+// (copiez et adaptez ce qui suit dans "main.h")
 //#define PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION  0x245
-//#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION  0x247
-//#define PILOTECAN1_MASQUE_11_BITS_EN_RECEPTION  0x244
+//#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION     0x247
+//#define PILOTECAN1_MASQUE_11_BITS_EN_RECEPTION     0x244
+//
+// Option multi-ID en réception (facultatif):
+//#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION_0   0x120
+//#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION_1   0x121
+//#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION_2   0x130
+//#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION_3   0x131
 //pas de dépendances logicielles
 
 //INFORMATION PUBLIQUE:

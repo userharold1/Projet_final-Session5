@@ -35,19 +35,22 @@
 //usart2
 //tx pa2
 //rx pa3
-
+#include "serviceProtocole637.h"
+#include "serviceCan637.h"
+#include "ProcessusCAN_UART.h"
+#include "piloteCAN1.h"
 #include "piloteTimer6Up.h"
 #include "piloteUSART2.h"
 #include "piloteIOT1.h"
 #include "piloteIOT2.h"
 #include "serviceBaseDeTemps.h"
-
+//#include "interfaceS0008.h"
 #include "interfaceT1.h"
 #include "interfaceT2.h"    
 #include "serviceProtocole637.h"
 
 #include "processusClignotant.h"
-#include "processusReceptionEtat.h"
+//#include "processusReceptionEtat.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,6 +95,7 @@ void main_initialise(void)
 {
 piloteTimer6Up_initialise();
 piloteUSART2_initialise();
+piloteCAN1_initialise();
 //piloteIOB1_initialise();
 piloteIOT1_initialise();
 piloteIOT2_initialise();
@@ -100,9 +104,10 @@ serviceBaseDeTemps_initialise();
 interfaceT1_initialise();
 interfaceT2_initialise();
 serviceProtocole637_initialise();
-//processusBoutonTransmetteur_initialise();
+serviceCan637_initialise();
+processusCAN_UART_initialise();
 processusClignotant_initialise();
-processusReceptionEtat_initialise();
+//processusReceptionEtat_initialise();
 
 }
 
@@ -220,11 +225,11 @@ static void MX_CAN1_Init(void)
 
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
-  hcan1.Init.Prescaler = 16;
+  hcan1.Init.Prescaler = 21;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1.Init.TimeSeg1 = CAN_BS1_1TQ;
-  hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_13TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
   hcan1.Init.AutoWakeUp = DISABLE;
