@@ -1398,12 +1398,12 @@
         <group>
             <name>User</name>
             <group>
-                <name>INTERFACE</name>
+                <name>Interfaces</name>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\interfaceS0008.c</name>
+                    <name>$PROJ_DIR$\..\Src\interfaceS0002.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\interfaceS0008.h</name>
+                    <name>$PROJ_DIR$\..\Src\interfaceS0002.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\interfaceT1.c</name>
@@ -1419,9 +1419,12 @@
                 </file>
             </group>
             <group>
-                <name>PILOTE</name>
+                <name>Pilotes</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\piloteCAN1.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\piloteCAN1.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\piloteIOT1.c</name>
@@ -1439,16 +1442,22 @@
                     <name>$PROJ_DIR$\..\Src\piloteTimer6Up.c</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\piloteTimer6Up.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\piloteUSART2.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\piloteUSART2.h</name>
                 </file>
             </group>
             <group>
-                <name>PROCESSUS</name>
+                <name>Processus</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\ProcessusCAN_UART.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\ProcessusCAN_UART.h</name>
+                    <name>$PROJ_DIR$\..\Src\processusCAN_UART.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\processusClignotant.c</name>
@@ -1456,9 +1465,12 @@
                 <file>
                     <name>$PROJ_DIR$\..\Src\processusClignotant.h</name>
                 </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\processusReceptionEtat.h</name>
+                </file>
             </group>
             <group>
-                <name>SERVICE</name>
+                <name>Services</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\serviceBaseDeTemps.c</name>
                 </file>
@@ -1469,14 +1481,17 @@
                     <name>$PROJ_DIR$\..\Src\ServiceCAN637.c</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\serviceCan637.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\serviceProtocole637.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\serviceProtocole637.h</name>
                 </file>
             </group>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Inc\main.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>

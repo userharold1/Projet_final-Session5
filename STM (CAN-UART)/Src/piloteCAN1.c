@@ -10,9 +10,7 @@
 //pas de definitions privees
 
 //Declarations de fonctions privees:
-//Declarations de fonctions privees:
-static unsigned int piloteCAN1_idEstAccepte(unsigned int id);
-
+//pas de fonctions privees
 
 //Declarations de variables privees:
 extern CAN_HandleTypeDef hcan1; //défini par le hal dans main
@@ -33,52 +31,6 @@ unsigned int piloteCAN1_CasierPostal;
 // pas de definitions publiques
 
 //Fonctions publiques:
-
-//Definitions de fonctions privees:
-static unsigned int piloteCAN1_idEstAccepte(unsigned int id)
-{
-  // Multi-ID : on teste d'abord les nouveaux defines, s'ils existent
-  #ifdef PILOTECAN1_IDENTIFICATION_EN_RECEPTION_0
-  if (id == PILOTECAN1_IDENTIFICATION_EN_RECEPTION_0)
-  {
-    return 1;
-  }
-  #endif
-
-  #ifdef PILOTECAN1_IDENTIFICATION_EN_RECEPTION_1
-  if (id == PILOTECAN1_IDENTIFICATION_EN_RECEPTION_1)
-  {
-    return 1;
-  }
-  #endif
-
-  #ifdef PILOTECAN1_IDENTIFICATION_EN_RECEPTION_2
-  if (id == PILOTECAN1_IDENTIFICATION_EN_RECEPTION_2)
-  {
-    return 1;
-  }
-  #endif
-
-  #ifdef PILOTECAN1_IDENTIFICATION_EN_RECEPTION_3
-  if (id == PILOTECAN1_IDENTIFICATION_EN_RECEPTION_3)
-  {
-    return 1;
-  }
-  #endif
-
-  // Compatibilité avec l’ancienne version : 1 seul ID
-  #ifdef PILOTECAN1_IDENTIFICATION_EN_RECEPTION
-  if (id == PILOTECAN1_IDENTIFICATION_EN_RECEPTION)
-  {
-    return 1;
-  }
-  #endif
-
-  // Si on arrive ici ? ID non accepté
-  return 0;
-}
-
-
 unsigned int piloteCAN1_messageDisponible(void)
 {
   return HAL_CAN_GetRxFifoFillLevel(&hcan1, CAN_FILTER_FIFO0);  
@@ -91,32 +43,13 @@ unsigned int piloteCAN1_messageTransmis(void)
 
 unsigned char piloteCAN1_litUnMessageRecu(unsigned char *DonneesRecues)
 {
-  // Tant qu'il reste des messages dans le FIFO CAN
-  while (HAL_CAN_GetRxFifoFillLevel(&hcan1, CAN_FILTER_FIFO0) > 0)
+  if (HAL_CAN_GetRxMessage(&hcan1, CAN_FILTER_FIFO0,
+                           &piloteCAN1_reception, DonneesRecues) != HAL_OK)
   {
-    // On lit un message
-    if (HAL_CAN_GetRxMessage(&hcan1, CAN_FILTER_FIFO0,
-                             &piloteCAN1_reception, DonneesRecues) != HAL_OK)
-    {
-      // Erreur de lecture ? on considère qu'il n'y a rien d'utilisable
-      return PILOTECAN1_PAS_DISPONIBLE;
-    }
-
-    // On regarde si l'ID de cette trame nous intéresse
-    if (piloteCAN1_idEstAccepte(piloteCAN1_reception.StdId))
-    {
-      // OUI ? on retourne les données au dessus (service/proc)
-      return PILOTECAN1_DISPONIBLE;
-    }
-
-    // NON ? on ignore cette trame et on continue la boucle
-    // (on a déjà "jeté" le message du FIFO en l'ayant lu)
+    return PILOTECAN1_PAS_DISPONIBLE;
   }
-
-  // Si on a vidé le FIFO et qu'on n'a rien trouvé pour nous
-  return PILOTECAN1_PAS_DISPONIBLE;
+  return PILOTECAN1_DISPONIBLE;
 }
-
 
 unsigned int piloteCAN1_transmetDesDonnes(unsigned int Identification11Bits,
                                           unsigned char *Donnees,

@@ -1,4 +1,4 @@
-//processusCanVersUart637:
+//processusCAN_UART:
 //Historique:
 // 2025-12-01, création
 
@@ -6,52 +6,79 @@
 #include "main.h"
 #include "serviceBaseDeTemps.h"
 #include "serviceCan637.h"
+#include "piloteCAN1.h"
 #include "serviceProtocole637.h"
 #include "processusCAN_UART.h"
 
-//Definitions privees
-//pas de definitions privees
-
-//Declarations de fonctions privees:
-static void processusCanVersUart637_gere(void);
-
+//Déclarations de fonctions privées:
+void processusCAN_UART_gere(void);
+void processusTestCAN_gere(void);
 //Definitions de variables privees:
 //pas de variables privees
-static unsigned int compteur = 0;
-//Definitions de fonctions privees:
 
-// Fonction appelée périodiquement par serviceBaseDeTemps
-static void processusCanVersUart637_gere(void)
+// ---------------------------------------------------------------------
+//  (OPTION) VERSION TEST ÉMISSION : UART -> CAN (pour l'autre STM)
+// ---------------------------------------------------------------------
+// Si tu veux utiliser cette STM comme "émetteur CAN de test",
+// tu peux commenter la fonction au-dessus et décommenter celle-ci :
+void processusTestCAN_gere(void)
+{
+   unsigned char i;
+
+    // 1) Attendre un nouveau message CAN (serviceCan637 a rempli octetsRecus[])
+    if (serviceCan637.information != INFORMATION_DISPONIBLE)
+    {
+        return;
+    }
+
+    // 2) Si une trame UART 637 est déjà en transmission, on attend
+    if (serviceProtocole637.requete == REQUETE_ACTIVE)
+    {
+        return;
+    }
+
+    // (Option : ici tu peux lire serviceCan637.octetsRecus[]
+    //  pour choisir un message différent selon ce qui vient du CAN)
+
+    // 3) Vider le buffer d'envoi du protocole 637
+    for (i = 0; i < SERVICEPROTOCOLE637_NOMBRE_DE_DONNEES_MAXIMUM; i++)
+    {
+        serviceProtocole637.octetsATransmettre[i] = 0;
+    }
+
+if ( (serviceCan637.octetsRecus[0] == 0x31) &&
+    (serviceCan637.octetsRecus[1] == 0x31) &&
+    (serviceCan637.octetsRecus[2] == 0x31) &&
+    (serviceCan637.octetsRecus[3] == 0x31) &&
+    (serviceCan637.octetsRecus[4] == 0x31) &&
+    (serviceCan637.octetsRecus[5] == 0x31) &&
+    (serviceCan637.octetsRecus[6] == 0x31) &&
+    (serviceCan637.octetsRecus[7] == 0x31))
+{ 
+// 4) Mettre "TESTCAN"
+    serviceProtocole637.octetsATransmettre[0] = 'T';
+    serviceProtocole637.octetsATransmettre[1] = 'E';
+    serviceProtocole637.octetsATransmettre[2] = 'S';
+    serviceProtocole637.octetsATransmettre[3] = 'T';
+    serviceProtocole637.octetsATransmettre[4] = 'C';
+    serviceProtocole637.octetsATransmettre[5] = 'A';
+    serviceProtocole637.octetsATransmettre[6] = 'N';
+    // ici ton action
+// 5) Demander l’envoi UART via serviceProtocole637
+    serviceProtocole637.requete = REQUETE_ACTIVE;
+
+}
+
+    // 6) Marquer le message CAN comme traité pour ne pas renvoyer en boucle
+    serviceCan637.information = INFORMATION_TRAITEE;
+  
+}
+
+
+void processusCAN_UART_gere(void)
 {
     unsigned char i;
-
-    // TEST: si jamais un message CAN arrive, on envoie "TESTCAN" en UART
-    /*if (serviceCan637.information == INFORMATION_DISPONIBLE)
-    {
-        if (serviceProtocole637.requete == REQUETE_ACTIVE)
-        {
-            return;
-        }
-
-//        // on vide le buffer UART
-//        for (i = 0; i < SERVICEPROTOCOLE637_NOMBRE_DE_DONNEES_MAXIMUM; i++)
-//        {
-//            serviceProtocole637.octetsATransmettre[i] = 0;
-//        }
-
-        serviceProtocole637.octetsATransmettre[0] = 'T';
-        serviceProtocole637.octetsATransmettre[1] = 'E';
-        serviceProtocole637.octetsATransmettre[2] = 'S';
-        serviceProtocole637.octetsATransmettre[3] = 'T';
-        serviceProtocole637.octetsATransmettre[4] = 'C';
-        serviceProtocole637.octetsATransmettre[5] = 'A';
-        serviceProtocole637.octetsATransmettre[6] = 'N';
-
-        serviceProtocole637.requete = REQUETE_ACTIVE;
-        serviceCan637.information = INFORMATION_TRAITEE;
-        return;
-    }*/
-
+    static unsigned int compteur = 0 ;
 
     // Petit diviseur de fréquence : on envoie une trame tous les 100 ticks
     if (++compteur < 100)
@@ -60,7 +87,7 @@ static void processusCanVersUart637_gere(void)
     }
     compteur = 0;
 
-    // Si une trame est déjà en attente de transmission, on attend
+    // Si une trame CAN est déjà en attente de transmission, on attend
     if (serviceCan637.requete == REQUETE_ACTIVE)
     {
         return;
@@ -69,10 +96,10 @@ static void processusCanVersUart637_gere(void)
     // Préparer les 8 octets à transmettre : 0x31 ('1') × 8
     for (i = 0; i < 8; i++)
     {
-        serviceCan637.octetsATransmettre[i] = 0x31;   // ou '1'
+        serviceCan637.octetsATransmettre[i] = 0x31;   // '1'
     }
 
-    // Les autres octets au-delà de 8, on les met à 0 par sécurité
+    // Zero du reste du buffer serviceCan637 (optionnel)
     for (; i < SERVICECAN637_NOMBRE_DE_DONNEES_MAXIMUM; i++)
     {
         serviceCan637.octetsATransmettre[i] = 0x00;
@@ -83,15 +110,13 @@ static void processusCanVersUart637_gere(void)
 
     // Demander la transmission CAN au service
     serviceCan637.requete = REQUETE_ACTIVE;
-
-    // (le reste de ta logique plus intelligente après)
 }
 
-//Definitions de fonctions publiques:
 
+//Definitions de fonctions publiques:
 void processusCAN_UART_initialise(void)
 {
   // Inscription du processus dans le service de base de temps
   serviceBaseDeTemps_execute[PROCESSUSCAN_UART_PHASE] =
-      processusCanVersUart637_gere;
+      processusCAN_UART_gere;
 }
