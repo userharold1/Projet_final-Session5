@@ -107,7 +107,7 @@ void processusVehicule_Positionnement(void)
   switch(processusVehicule.CompteurPosi)
   {
     case POSITION_LIGNE_MILIEU_AVANT:
-     strcpy(serviceWiFiUDP.messageATransmettre, "MilieuA");
+     strcpy(serviceWiFiUDP.messageATransmettre, "Milieu");
      serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_A_TRAITER;
       // Reprendre le suivi vers la ligne de fin
       processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
@@ -129,7 +129,7 @@ void processusVehicule_Positionnement(void)
       //processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
 
       
-       strcpy(serviceWiFiUDP.messageATransmettre, "MilieuR");
+       strcpy(serviceWiFiUDP.messageATransmettre, "Milieu");
        serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_A_TRAITER;
        processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
        serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;

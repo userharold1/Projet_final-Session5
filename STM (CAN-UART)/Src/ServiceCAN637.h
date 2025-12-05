@@ -39,7 +39,7 @@ typedef struct
   unsigned char requete;                  // REQUETE_TRAITEE / REQUETE_ACTIVE
   unsigned char nombreATransmettre;
   unsigned char octetsATransmettre[SERVICECAN637_NOMBRE_DE_DONNEES_MAXIMUM];
-
+  unsigned int idATransmettre;            // ID CAN à utiliser pour la prochaine trame TX
   unsigned char nombreARecevoir;
   unsigned char statut;                   // SERVICECAN637_xxx
 } SERVICECAN637;

@@ -54,7 +54,7 @@ void serviceCan637_gereLaTransmission(void)
 
   // Transmission CAN via le pilote
   // L'ID utilisé vient de main.h : PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION
-  if (piloteCAN1_transmetDesDonnes(PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION,
+  if (piloteCAN1_transmetDesDonnes(serviceCan637.idATransmettre,
                                    serviceCan637.octetsATransmettre,
                                    serviceCan637.nombreATransmettre)
       != PILOTECAN1_TRANSMIS)
@@ -131,7 +131,7 @@ void serviceCan637_gereLaTransmission(void)
 void serviceCan637_initialise(void)
 {
   unsigned char i;
-
+  serviceCan637.idATransmettre = CAN_ID_POSITIONNEMENT; 
   serviceCan637.etatDuModuleDeReception = MODULE_PAS_EN_FONCTION;
   serviceCan637.information             = INFORMATION_TRAITEE;
   serviceCan637.requete                 = REQUETE_TRAITEE;
