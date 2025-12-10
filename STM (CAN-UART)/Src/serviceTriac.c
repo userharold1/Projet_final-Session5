@@ -138,7 +138,7 @@ void serviceTriac_ITTimer7(void)
  */
 void serviceTriac_ITZeroCross(void)
 {
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET); // LED verte ON
+  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET); // LED verte ON
    if (!serviceTriac_actif)
     {
         return;

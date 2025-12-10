@@ -13,6 +13,7 @@
 //Déclarations de fonctions privées:
 void processusCAN_UART_uartVersCan(void);
 void processusCAN_UART_canVersUart(void);
+void processusCAN_UART_gere(void);
 //Definitions de variables privees:
 //pas de variables privees
 
@@ -75,9 +76,32 @@ void processusCAN_UART_canVersUart(void);
   
 }*/
 
-// =======================
-// UART -> CAN
-// =======================
+
+//void processusCAN_UART_uartVersCan(void)
+//{
+//  unsigned char i;
+//  // 2) Remplir le buffer CAN avec la lettre à envoyer ('C')
+//        for (i = 0; i < SERVICECAN637_NOMBRE_DE_DONNEES_MAXIMUM; i++)
+//        {
+//          serviceCan637.octetsATransmettre[i] = 'C';
+//        }
+//
+//       
+//        serviceCan637.nombreATransmettre = SERVICECAN637_NOMBRE_DE_DONNEES_MAXIMUM;
+//
+//        // 4) On lance la transmission CAN
+//        serviceCan637.requete = REQUETE_ACTIVE;
+//}
+
+void processusCAN_UART_gere(void)
+{
+    processusCAN_UART_uartVersCan();
+    processusCAN_UART_canVersUart();
+}
+
+//// =======================
+//// UART -> CAN
+//// =======================
 
 void processusCAN_UART_uartVersCan(void)
 {
@@ -98,6 +122,8 @@ void processusCAN_UART_uartVersCan(void)
     // Erreur dans la trame UART ?
     if (serviceProtocole637.statut != SERVICEPROTOCOLE637_PAS_D_ERREURS)
     {
+     
+
         serviceProtocole637.information = INFORMATION_TRAITEE;
         return;
     }
@@ -112,6 +138,8 @@ void processusCAN_UART_uartVersCan(void)
          (serviceProtocole637.octetsRecus[4] == 'e') &&
          (serviceProtocole637.octetsRecus[5] == 'u'))
     {
+      HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+
         // 1) Choisir l'ID CAN
         serviceCan637.idATransmettre = CAN_ID_POSITIONNEMENT;   // 0x100
 
@@ -129,17 +157,16 @@ void processusCAN_UART_uartVersCan(void)
 
         // 5) On a consommé le message UART
         serviceProtocole637.information = INFORMATION_TRAITEE;
-        return;
+       
     }
 
     // ============================
     //  CAS 2 : Pesee
     // ============================
-     if ((serviceProtocole637.octetsRecus[0] == 'P') &&
+    else if ((serviceProtocole637.octetsRecus[0] == 'P') &&
          (serviceProtocole637.octetsRecus[1] == 'e') &&
          (serviceProtocole637.octetsRecus[2] == 's') &&
-         (serviceProtocole637.octetsRecus[3] == 'e') &&
-         (serviceProtocole637.octetsRecus[4] == 'e') )
+         (serviceProtocole637.octetsRecus[3] == 'e') )
     {
      
 
@@ -160,15 +187,15 @@ void processusCAN_UART_uartVersCan(void)
 
         // 5) On a consommé le message UART
         serviceProtocole637.information = INFORMATION_TRAITEE;
-        return;
+        
     }
 
     // ============================
     //  CAS 3 : TRI
     // ============================
-     if ((serviceProtocole637.octetsRecus[0] == 'T') &&
-         (serviceProtocole637.octetsRecus[1] == 'r') &&
-         (serviceProtocole637.octetsRecus[2] == 'i') )
+    else if ((serviceProtocole637.octetsRecus[0] == 'T') &&
+             (serviceProtocole637.octetsRecus[1] == 'r') &&
+             (serviceProtocole637.octetsRecus[2] == 'i') )
     {
         // 1) Choisir l'ID CAN
         serviceCan637.idATransmettre = CAN_ID_POSITIONNEMENT;   // 0x100
@@ -187,14 +214,14 @@ void processusCAN_UART_uartVersCan(void)
 
         // 5) On a consommé le message UART
         serviceProtocole637.information = INFORMATION_TRAITEE;
-        return;
+       
     }
     
     
     // ============================
     //  CAS 4 : ERREUR 
     // ============================
-     if((serviceProtocole637.octetsRecus[0] == 'E') &&
+   else if((serviceProtocole637.octetsRecus[0] == 'E') &&
         (serviceProtocole637.octetsRecus[1] == 'r') &&
         (serviceProtocole637.octetsRecus[2] == 'r') &&
         (serviceProtocole637.octetsRecus[3] == 'e') &&
@@ -213,10 +240,14 @@ void processusCAN_UART_uartVersCan(void)
         serviceCan637.nombreATransmettre = SERVICECAN637_NOMBRE_DE_DONNEES_MAXIMUM;
         serviceCan637.requete            = REQUETE_ACTIVE;
         serviceProtocole637.information  = INFORMATION_TRAITEE;
-        return;
+        
     }
     
-   serviceProtocole637.information = INFORMATION_TRAITEE;  
+    
+    
+    serviceProtocole637.information = INFORMATION_TRAITEE; 
+    
+   
 }
 
 
@@ -231,12 +262,14 @@ void processusCAN_UART_canVersUart(void)
     // Nouveau message CAN dispo ?
     if (serviceCan637.information != INFORMATION_DISPONIBLE)
     {
+      
         return;
     }
 
     // UART déjà en émission ?
     if (serviceProtocole637.requete == REQUETE_ACTIVE)
     {
+      
         return;
     }
 
@@ -276,13 +309,14 @@ void processusCAN_UART_canVersUart(void)
 
         serviceProtocole637.requete    = REQUETE_ACTIVE;
         serviceCan637.information      = INFORMATION_TRAITEE;
-        return;
+        
+      
     }
     
     
     
 
-    if (serviceCan637.octetsRecus[0] == 'M' &&
+    else if (serviceCan637.octetsRecus[0] == 'M' &&
         serviceCan637.octetsRecus[1] == 'M' &&
         serviceCan637.octetsRecus[2] == 'M' &&
         serviceCan637.octetsRecus[3] == 'M' &&
@@ -309,12 +343,46 @@ void processusCAN_UART_canVersUart(void)
 
         serviceProtocole637.requete    = REQUETE_ACTIVE;
         serviceCan637.information      = INFORMATION_TRAITEE;
-        return;
+       
     }
     
+    
+    else if (serviceCan637.octetsRecus[0] == 'T' &&
+        serviceCan637.octetsRecus[1] == 'E' &&
+        serviceCan637.octetsRecus[2] == 'R' &&
+        serviceCan637.octetsRecus[3] == 'M' &&
+        serviceCan637.octetsRecus[4] == 'I' &&
+        serviceCan637.octetsRecus[5] == 'N' &&
+        serviceCan637.octetsRecus[6] == 'E' &&
+        serviceCan637.octetsRecus[7] == 'Z')
+    {
+        // On veut envoyer "Rouge" en UART via serviceProtocole637
 
+        // Nettoyer le buffer TX UART
+        for (i = 0; i < SERVICEPROTOCOLE637_NOMBRE_DE_DONNEES_MAXIMUM; i++)
+        {
+            serviceProtocole637.octetsATransmettre[i] = 0;
+        }
+
+        serviceProtocole637.octetsATransmettre[0] = 'P';
+        serviceProtocole637.octetsATransmettre[1] = 'a';
+        serviceProtocole637.octetsATransmettre[2] = 'r';
+        serviceProtocole637.octetsATransmettre[3] = 't';
+       // serviceProtocole637.octetsATransmettre[4] = 'l';
+
+ 
+
+        serviceProtocole637.requete    = REQUETE_ACTIVE;
+        serviceCan637.information      = INFORMATION_TRAITEE;
+       
+    }
+    
+    
+      
     // Si rien ne matche, on marque tout de même comme traité
     serviceCan637.information = INFORMATION_TRAITEE;
+    
+    
 }
 
 
@@ -324,9 +392,7 @@ void processusCAN_UART_canVersUart(void)
 void processusCAN_UART_initialise(void)
 {
   // Inscription du processus dans le service de base de temps
-  serviceBaseDeTemps_execute[PROCESSUSCAN_UART_PHASE_UARTCAN] =
-      processusCAN_UART_uartVersCan;
   
-  serviceBaseDeTemps_execute[PROCESSUSCAN_UART_PHASE_CANUART] =
-      processusCAN_UART_canVersUart;
+  serviceBaseDeTemps_execute[PROCESSUSCAN_UART_PHASE] =
+  processusCAN_UART_gere;
 }

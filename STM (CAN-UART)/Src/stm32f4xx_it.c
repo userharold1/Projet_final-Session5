@@ -137,13 +137,5 @@ void TIM7_IRQHandler(void)
 
 
 
-/*
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-    if (GPIO_Pin == GPIO_PIN_15)
-    {
-      //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12); // Toggle LED verte (LD4)
-        serviceTriac_ITZeroCross();
-    }
-}*/
+
 /* USER CODE END 1 */
