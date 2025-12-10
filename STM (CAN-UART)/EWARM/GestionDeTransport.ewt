@@ -1454,6 +1454,12 @@
             <group>
                 <name>Processus</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\processusAscenseur.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\processusAscenseur.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\ProcessusCAN_UART.c</name>
                 </file>
                 <file>
@@ -1481,13 +1487,19 @@
                     <name>$PROJ_DIR$\..\Src\ServiceCAN637.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\serviceCan637.h</name>
+                    <name>$PROJ_DIR$\..\Src\ServiceCAN637.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\serviceProtocole637.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\serviceProtocole637.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\serviceTriac.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\serviceTriac.h</name>
                 </file>
             </group>
             <file>

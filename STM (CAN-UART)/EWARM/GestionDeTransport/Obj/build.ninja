@@ -28,11 +28,13 @@ build piloteIOT1.pbi : index piloteIOT1.xcl
 build piloteIOT2.pbi : index piloteIOT2.xcl
 build piloteTimer6Up.pbi : index piloteTimer6Up.xcl
 build piloteUSART2.pbi : index piloteUSART2.xcl
+build processusAscenseur.pbi : index processusAscenseur.xcl
 build ProcessusCAN_UART.pbi : index ProcessusCAN_UART.xcl
 build processusClignotant.pbi : index processusClignotant.xcl
 build serviceBaseDeTemps.pbi : index serviceBaseDeTemps.xcl
 build ServiceCAN637.pbi : index ServiceCAN637.xcl
 build serviceProtocole637.pbi : index serviceProtocole637.xcl
+build serviceTriac.pbi : index serviceTriac.xcl
 build main.pbi : index main.xcl
 build stm32f4xx_hal_msp.pbi : index stm32f4xx_hal_msp.xcl
 build stm32f4xx_it.pbi : index stm32f4xx_it.xcl
@@ -55,11 +57,11 @@ build stm32f4xx_hal_tim.pbi : index stm32f4xx_hal_tim.xcl
 build stm32f4xx_hal_tim_ex.pbi : index stm32f4xx_hal_tim_ex.xcl
 build stm32f4xx_hal_uart.pbi : index stm32f4xx_hal_uart.xcl
 build GestionDeTransport_part0.pbi : link interfaceS0002.pbi interfaceT1.pbi interfaceT2.pbi piloteCAN1.pbi piloteIOT1.pbi piloteIOT2.pbi
-build GestionDeTransport_part1.pbi : link piloteTimer6Up.pbi piloteUSART2.pbi ProcessusCAN_UART.pbi processusClignotant.pbi serviceBaseDeTemps.pbi ServiceCAN637.pbi
-build GestionDeTransport_part2.pbi : link serviceProtocole637.pbi main.pbi stm32f4xx_hal_msp.pbi stm32f4xx_it.pbi system_stm32f4xx.pbi stm32f4xx_hal.pbi
-build GestionDeTransport_part3.pbi : link stm32f4xx_hal_can.pbi stm32f4xx_hal_cortex.pbi stm32f4xx_hal_dma.pbi stm32f4xx_hal_dma_ex.pbi stm32f4xx_hal_exti.pbi stm32f4xx_hal_flash.pbi
-build GestionDeTransport_part4.pbi : link stm32f4xx_hal_flash_ex.pbi stm32f4xx_hal_flash_ramfunc.pbi stm32f4xx_hal_gpio.pbi stm32f4xx_hal_pwr.pbi stm32f4xx_hal_pwr_ex.pbi stm32f4xx_hal_rcc.pbi
-build GestionDeTransport_part5.pbi : link stm32f4xx_hal_rcc_ex.pbi stm32f4xx_hal_tim.pbi stm32f4xx_hal_tim_ex.pbi stm32f4xx_hal_uart.pbi
+build GestionDeTransport_part1.pbi : link piloteTimer6Up.pbi piloteUSART2.pbi processusAscenseur.pbi ProcessusCAN_UART.pbi processusClignotant.pbi serviceBaseDeTemps.pbi
+build GestionDeTransport_part2.pbi : link ServiceCAN637.pbi serviceProtocole637.pbi serviceTriac.pbi main.pbi stm32f4xx_hal_msp.pbi stm32f4xx_it.pbi
+build GestionDeTransport_part3.pbi : link system_stm32f4xx.pbi stm32f4xx_hal.pbi stm32f4xx_hal_can.pbi stm32f4xx_hal_cortex.pbi stm32f4xx_hal_dma.pbi stm32f4xx_hal_dma_ex.pbi
+build GestionDeTransport_part4.pbi : link stm32f4xx_hal_exti.pbi stm32f4xx_hal_flash.pbi stm32f4xx_hal_flash_ex.pbi stm32f4xx_hal_flash_ramfunc.pbi stm32f4xx_hal_gpio.pbi stm32f4xx_hal_pwr.pbi
+build GestionDeTransport_part5.pbi : link stm32f4xx_hal_pwr_ex.pbi stm32f4xx_hal_rcc.pbi stm32f4xx_hal_rcc_ex.pbi stm32f4xx_hal_tim.pbi stm32f4xx_hal_tim_ex.pbi stm32f4xx_hal_uart.pbi
 build GestionDeTransport.pbd : link GestionDeTransport_part0.pbi GestionDeTransport_part1.pbi GestionDeTransport_part2.pbi GestionDeTransport_part3.pbi GestionDeTransport_part4.pbi GestionDeTransport_part5.pbi
 build GestionDeTransport.pbw : browsedata GestionDeTransport.pbd
 

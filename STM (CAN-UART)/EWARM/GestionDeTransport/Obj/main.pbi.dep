@@ -48,6 +48,8 @@ main.pbi: \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/piloteIOT1.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/piloteIOT2.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/serviceBaseDeTemps.h \
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/serviceTriac.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/interfaceT1.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/interfaceT2.h \
+  U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/processusAscenseur.h \
   U:\CEGEP2\Projet-Final\Session\ 5\ProjetFinale-Session5\STM\ (CAN-UART)\Src/processusClignotant.h

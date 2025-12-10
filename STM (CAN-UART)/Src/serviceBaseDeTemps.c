@@ -6,7 +6,7 @@
 #include "main.h"
 #include "piloteTimer6Up.h"
 #include "serviceBaseDeTemps.h"
-
+#include "serviceTriac.h" 
 //Definitions privees
 //pas de definitions privees
 
@@ -24,6 +24,8 @@ unsigned char i;
   {
     serviceBaseDeTemps_execute[i]();
   }
+  
+   
 }
     
 //Definitions de variables publiques:

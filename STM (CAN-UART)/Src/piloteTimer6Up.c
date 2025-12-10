@@ -5,7 +5,7 @@
 //INCLUSIONS
 #include "main.h"
 #include "piloteTimer6Up.h"
-
+#include "serviceTriac.h"
 //Definitions privees
 //pas de definitions privees
 
@@ -14,7 +14,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 
 //Definitions de variables privees:
 extern TIM_HandleTypeDef htim6; //definie pas le hal et declare ici
-
+extern TIM_HandleTypeDef htim7; //definie pas le hal et declare ici
 
 //Definitions de fonctions privees:
 //pas de fonctions privees
@@ -25,15 +25,22 @@ void (*piloteTimer6Up_execute)(void);
 //Definitions de fonctions publiques:
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  if (htim == &htim6)
+  if(htim == &htim6)
   {
-    piloteTimer6Up_execute();
+    piloteTimer6Up_execute();  
   }
+  else if(htim == &htim7)
+  {
+   serviceTriac_ITTimer7();
+
+  }
+
 }
 
 void piloteTimer6Up_permetLesInterruptions(void)
 {
   HAL_TIM_Base_Start_IT(&htim6);  
+  HAL_TIM_Base_Start_IT(&htim7); 
 }
 
 void piloteTimer6Up_initialise(void)

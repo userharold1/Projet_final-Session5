@@ -29,7 +29,7 @@ void piloteIOT2_metLaSortieA(unsigned char Valeur)
 
 void piloteIOT2_initialise(void)
 {
-  HAL_GPIO_WritePin(PILOTEIOT2_PORT, PILOTEIOT2_SORTIE, GPIO_PIN_RESET);  
+  HAL_GPIO_WritePin(PILOTEIOT2_PORT, PILOTEIOT2_SORTIE, GPIO_PIN_SET);  
 }
 
 
