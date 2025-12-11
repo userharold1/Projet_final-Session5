@@ -10,9 +10,9 @@
 //================================
 // Define
 //================================
-#define DELAIROTATION180 2100
+#define DELAIROTATION180 2200
 #define DELAIROTATION90  500
-#define DELAI_RECUL_AVANT_ROTATION 200
+#define DELAI_RECUL_AVANT_ROTATION 300
 //#define DELAI_ATTENTE_AVANT_ROTATION 2000
 //================================
 // Variables Globales
@@ -28,7 +28,7 @@ void processusVehicule_Suit(void);
 void processusVehicule_Positionnement(void);
 void processusVehicule_rotation180(void);
 void processusVehicule_AttenteInstruction(void);
-void processusVehicule_SuitEnRecul(void);
+
 
 // ===============================
 // Fonctions publiques
@@ -52,6 +52,7 @@ void processusVehicule_gere (void)
     else
     {
       processusVehicule.blocActif = AUCUNBLOC;
+      serviceWiFiUDP.information = SERVICEWIFIUDP_INFORMATION_TRAITEE;
       return;
       
     }
@@ -77,10 +78,10 @@ void processusVehicule_Suit(void)
     {
       serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_tourneAGauche;
     }
-    /*else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_PERDU)
+    else if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_PERDU)
     {
       serviceBaseDeTemps_execute[PROCESSUSCONDUITEPHASE] = processusConduite_arret;
-    }*/
+    }
 
     // Détection d'une ligne pleine (positionnement)
     if(processusSuiveurDeLigne.Direction == PROCESSUSSUIVEURLIGNE_ARRET)
@@ -158,6 +159,8 @@ void processusVehicule_Positionnement(void)
       break;
 
     default:
+    strcpy(serviceWiFiUDP.messageATransmettre, "ERREUR");
+    serviceWiFiUDP.requete = SERVICEWIFIUDP_REQUETE_A_TRAITER;
       break;
   }
 }
@@ -289,7 +292,8 @@ void processusVehicule_AttenteInstruction(void)
                 }
                 else if(processusVehicule.ancienBloc == BLOCROUGE)  // rouge -> rouge = pas 180
                 {
-                   
+                    processusVehicule.CompteurPosi = POSITION_DEPART;
+
                     processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
                     processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
                     serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
@@ -303,11 +307,14 @@ void processusVehicule_AttenteInstruction(void)
 
                 if(processusVehicule.ancienBloc == BLOCMETAL)  // metal -> metal = 180
                 {
+                  // Ici, tu peux aussi ajouter, pour être propre :
+                    processusVehicule.CompteurPosi = POSITION_DEPART;
                     serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_rotation180;
                 }
                 else  // rouge -> metal = pas 180
                 {
-                    
+                    processusVehicule.CompteurPosi = POSITION_DEPART;
+
                     processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
                     processusSuiveurDeLigne.Direction = PROCESSUSSUIVEURLIGNE_AVANCE;
                     serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_Suit;
@@ -327,5 +334,6 @@ void processusVehicule_initialise(void)
   processusVehicule.controleSuiveur = SUIVEUR_ACTIF;
   processusVehicule.CompteurPosi = POSITION_DEPART;
   processusVehicule.derniereLignePleine = 0;
+  processusVehicule.retoune = NON_ACTIF;  
   serviceBaseDeTemps_execute[PROCESSUSVEHICULEPHASE] = processusVehicule_gere;
 }
